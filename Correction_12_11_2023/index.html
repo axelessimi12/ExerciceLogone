@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correction</title>
+</head>
+<body>
+
+  <script>
+
+// Exercice 1 : écrire une fonction qui prend en paramètre un tableau de nombres
+// et qui renvoie la somme des nombres pairs du tableau
+
+// Déclaration de la fonction sommePairs
+function sommePairs(tab) {
+  // Initialisation de la variable somme à 0
+  let somme = 0;
+  // Parcours du tableau avec une boucle for
+  for (let i = 0; i < tab.length; i++) {
+    // Si l'élément courant est pair
+    if (tab[i] % 2 == 0) {
+      // On l'ajoute à la somme
+      somme += tab[i];
+    }
+  }
+  // On renvoie la somme
+  return somme;
+}
+
+// Exemple d'appel de la fonction avec le tableau [1, 2, 3, 4, 5]
+console.log(sommePairs([1, 2, 3, 4, 5])); // Affiche 6
+
+////////////////////////////////
+
+// Exercice 2 : écrire une fonction qui prend en paramètre un tableau de chaînes de caractères
+// et qui renvoie le nombre de chaînes qui commencent par la lettre 'a'
+
+// Déclaration de la fonction compterA
+function compterA(tab) {
+  // Initialisation de la variable compteur à 0
+  let compteur = 0;
+  // Parcours du tableau avec une boucle for...of
+  for (let chaine of tab) {
+    // Si la première lettre de la chaîne est 'a'
+    if (chaine[0] == 'a') {
+      // On incrémente le compteur
+      compteur++;
+    }
+  }
+  // On renvoie le compteur
+  return compteur;
+}
+
+// Exemple d'appel de la fonction avec le tableau ['ananas', 'banane', 'abricot', 'cerise']
+console.log(compterA(['ananas', 'banane', 'abricot', 'cerise'])); // Affiche 2
+
+  </script>
+  
+</body>
+</html>
