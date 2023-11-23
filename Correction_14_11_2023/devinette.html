@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correction</title>
+</head>
+<body>
+  <script>
+
+    // Déclaration des variables
+var nom; // Le nom de l'utilisateur
+var nombre; // Le nombre aléatoire à deviner
+var essai; // Le nombre saisi par l'utilisateur
+var tentatives; // Le nombre de tentatives utilisées
+var maxTentatives; // Le nombre maximum de tentatives autorisées
+var gagne; // Un booléen qui indique si l'utilisateur a gagné ou non
+var rejouer; // Un booléen qui indique si l'utilisateur veut rejouer ou non
+
+// Déclaration des tableaux
+var messagesBienvenue = ["Bienvenue dans le jeu de devinettes !", "Prêt à relever le défi ?", "Saurez-vous deviner le nombre mystère ?"]; // Les messages de bienvenue possibles
+var messagesIndice = ["Trop petit ! Essayez un nombre plus grand.", "Trop grand ! Essayez un nombre plus petit.", "Vous brûlez ! Vous êtes très proche du nombre mystère.", "Vous êtes loin ! Vous êtes très éloigné du nombre mystère."]; // Les messages d'indice possibles
+var messagesFelicitation = ["Bravo ! Vous avez deviné le nombre mystère !", "Félicitations ! Vous avez trouvé le nombre mystère !", "Super ! Vous avez gagné le jeu !"]; // Les messages de félicitations possibles
+var messagesFin = ["Dommage ! Vous avez perdu le jeu !", "Malheureusement ! Vous n'avez pas trouvé le nombre mystère !", "Zut ! Vous avez épuisé vos tentatives !"]; // Les messages de fin possibles
+
+// Déclaration des fonctions
+function genererNombre(min, max) {
+  // Cette fonction génère un nombre aléatoire entre min et max
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function demanderNombre(min, max) {
+  // Cette fonction demande à l'utilisateur de saisir un nombre entre min et max et le renvoie
+  var nombre = parseInt(prompt("Saisissez un nombre entre " + min + " et " + max + "."));
+  while (isNaN(nombre) || nombre < min || nombre > max) {
+    nombre = parseInt(prompt("Saisie incorrecte. Saisissez un nombre entre " + min + " et " + max + "."));
+  }
+  return nombre;
+}
+
+function verifierNombre(essai, nombre) {
+  // Cette fonction vérifie si le nombre saisi par l'utilisateur est égal, inférieur ou supérieur au nombre aléatoire et renvoie un message d'indice ou de félicitations
+  var message;
+  if (essai === nombre) {
+    message = messagesFelicitation[genererNombre(0, messagesFelicitation.length - 1)];
+  } else if (essai < nombre) {
+    message = messagesIndice[genererNombre(0, 1)];
+  } else {
+    message = messagesIndice[genererNombre(2, 3)];
+  }
+  return message;
+}
+
+function afficherMessage(message) {
+  // Cette fonction affiche un message à l'utilisateur
+  alert(message);
+}
+
+function demanderRejouer() {
+  // Cette fonction demande à l'utilisateur s'il veut rejouer ou non et renvoie un booléen
+  var reponse = prompt("Voulez-vous rejouer ? Tapez oui ou non.");
+  while (reponse !== "oui" && reponse !== "non") {
+    reponse = prompt("Réponse incorrecte. Voulez-vous rejouer ? Tapez oui ou non.");
+  }
+  return reponse === "oui";
+}
+
+// Début du jeu
+do {
+  // Initialisation des variables
+  nom = prompt("Quel est votre nom ?");
+  nombre = genererNombre(1, 100);
+  tentatives = 0;
+  maxTentatives = 10;
+  gagne = false;
+  rejouer = false;
+
+  // Affichage du message de bienvenue
+  afficherMessage(messagesBienvenue[genererNombre(0, messagesBienvenue.length - 1)] + " " + nom + " !");
+
+  // Boucle du jeu
+  while (tentatives < maxTentatives && !gagne) {
+    // Demande du nombre à l'utilisateur
+    essai = demanderNombre(1, 100);
+    tentatives++;
+
+    // Vérification du nombre saisi
+    var message = verifierNombre(essai, nombre);
+
+    // Affichage du message
+    afficherMessage(message);
+
+    // Détermination du résultat du jeu
+    if (essai === nombre) {
+      gagne = true;
+    }
+  }
+
+  // Affichage du message de fin
+  if (gagne) {
+    afficherMessage("Vous avez deviné le nombre mystère en " + tentatives + " tentatives !");
+  } else {
+    afficherMessage(messagesFin[genererNombre(0, messagesFin.length - 1)] + " Le nombre mystère était " + nombre + ".");
+  }
+
+  // Demande de rejouer
+  rejouer = demanderRejouer();
+} while (rejouer);
+
+// Fin du jeu
+afficherMessage("Merci d'avoir joué ! Au revoir " + nom + " !");
+
+////////////////////////////////
+
+
+
+
+  </script>
+</body>
+</html>
